@@ -1,56 +1,92 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
-const GET_COUNTER_VALUE = gql`
+const ADD_COUNTER_VALUE = gql`
   mutation {
     addCounter
   }
 `
 
+const INITIAL_POINTS = 20;
+
 const App: React.FC = () => {
   const p = localStorage.getItem('POINTS');
-  const [ points, setPoints ] = React.useState(p ? parseInt(p) : 0);
+  const [ points, setPoints ] = useState<number>(p ? parseInt(p) : INITIAL_POINTS);
+  const [ earnedPoints, setEarnedPoints] = useState<number|null>(null);
+  const [ nextWinCount, setNextWinCount ] = useState<number|null>(null);
+  const [ gameOver, setGameOver ] = useState<boolean>(points <= 0);
+
 
   const [ addCounter, { error, data } ] = useMutation(
-    GET_COUNTER_VALUE,
+    ADD_COUNTER_VALUE,
     {
       onCompleted({ addCounter }) {
-        console.log( addCounter );    
+        setNextWinCount(10-(addCounter % 10));
         if (addCounter % 500 === 0) {
-          console.log("Give 250 points!");
-          const p = points+250;
-          setPoints(p);
-          localStorage.setItem('POINTS', String(p));
+          addPoints(250);
         }
         else if (addCounter % 100 === 0) {
-          console.log("Give 40 points!");
-          const p = points+40;
-          setPoints(p);
-          localStorage.setItem('POINTS', String(p));
+          addPoints(40);
         }
         else if (addCounter % 10 === 0) {
-          console.log("Give 5 points!");
-          const p = points+5;
-          setPoints(p);
-          localStorage.setItem('POINTS', String(p));
+          addPoints(5);
+        }
+        else {
+          setEarnedPoints(null);
         }
       }
     }
   );
+
+  const addPoints = (p: number) => {
+    const curPoints = points+p;
+    setPoints(curPoints);
+    localStorage.setItem('POINTS', String(curPoints));
+    if (p > 0) {
+      setEarnedPoints(p);
+    }
+  }
   
   const handleButton = () => {
-    addCounter();
+    if (points > 0) {
+      addPoints(-1);
+      addCounter();
+    } else {
+      setGameOver(true);
+    }
+  }
+
+  const handlePlayAgain = () => {
+    setPoints(INITIAL_POINTS);
+    localStorage.setItem('POINTS', String(INITIAL_POINTS));
+    setGameOver(false);
   }
 
   return (
     <div>
       {error ? <p>Sorry, error. :( {error.message}</p> : null}
-      <button onClick={() => handleButton()}>Paina tästä</button>
+
+      {!gameOver ?
+        <button onClick={() => handleButton()}>{"Press the button!"}</button>
+        : 
+        <button onClick={() => handlePlayAgain()}>{"Play again"}</button>
+      }
+      
       {data && data.addCounter}
+      
       <div>Points: {points}</div>
+      
+      {earnedPoints && 
+        <div>You earned {earnedPoints} points!</div>
+      }
+      
+      {nextWinCount && 
+        <div>Next win after {nextWinCount} presses.</div>
+      }
+
     </div>
   );
 }
