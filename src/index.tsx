@@ -11,8 +11,9 @@ import { ApolloProvider } from '@apollo/react-hooks';
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  // uri: 'https://wece-counter-game-server.herokuapp.com/graphql'
-  uri: 'http://localhost:4000/graphql'
+  uri: (window.location.host === "localhost:3000" || window.location.host === "127.0.0.1:3000") 
+    ? 'http://localhost:4000/graphql'
+    : 'https://wece-counter-game-server.herokuapp.com/graphql'
 })
 
 const client = new ApolloClient({
