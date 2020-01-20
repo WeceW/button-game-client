@@ -47,8 +47,7 @@ const TopBar: React.FC<TopBarProps> = ({score, reward, nextReward, gameover, han
         <p>Next reward after {nextReward} pushes...</p>
         : gameover ? 
           <p>Start a new game?</p> 
-          :
-          <p>Welcome! Start/Continue the game:</p>
+          : <p>Welcome! Start/Continue the game:</p>
       }
     </SecondaryBar>
   </>

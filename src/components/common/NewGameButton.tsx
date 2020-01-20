@@ -14,7 +14,10 @@ interface NewGameButtonProps {
 
 const NewGameButton: React.FC<NewGameButtonProps> = ({onClick}) => (
   <NewGameButtonWrapper>
-    <FontAwesomeIcon icon={faUndo} onClick={() => onClick()} />
+    <FontAwesomeIcon 
+      icon={faUndo} 
+      onClick={() => onClick()} 
+    />
   </NewGameButtonWrapper>
 )
 

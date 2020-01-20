@@ -10,7 +10,10 @@ const InfoPopupWrapper = styled.div`
 
 const InfoPopup: React.FC = () => (
   <InfoPopupWrapper>
-    <FontAwesomeIcon icon={faInfoCircle} />
+    <FontAwesomeIcon 
+      icon={faInfoCircle} 
+      onClick={() => console.log("TODO: Show some info/instructions in a popup.")} 
+    />
   </InfoPopupWrapper>
 )
 

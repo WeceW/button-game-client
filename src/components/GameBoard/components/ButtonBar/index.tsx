@@ -16,7 +16,9 @@ interface ButtonBarProps {
 
 const ButtonBar: React.FC<ButtonBarProps> = ({onButtonPress, onRestart, gameover}) => (
   <ButtonBarWrapper>
-    <TheButton onClick={gameover ? onRestart : onButtonPress} />
+    <TheButton 
+      onClick={gameover ? onRestart : onButtonPress} 
+    />
   </ButtonBarWrapper>
 )
 

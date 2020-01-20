@@ -22,31 +22,21 @@ const ADD_COUNTER_VALUE = gql`
 const INITIAL_POINTS = 20;
 
 const GameBoard: React.FC = () => {
-
   const p = localStorage.getItem('POINTS');
   const [ points, setPoints ] = useState<number>(p ? parseInt(p) : INITIAL_POINTS);
   const [ reward, setReward] = useState<number|null>(null);
   const [ nextRewardCount, setNextRewardCount ] = useState<number|null>(null);
   const [ gameover, setGameover ] = useState<boolean>(points <= 0);
 
-
   const [ addCounter, { error, /* data */ } ] = useMutation(
     ADD_COUNTER_VALUE,
     {
       onCompleted({ addCounter }) {
-        setNextRewardCount(10-(addCounter % 10));
-        if (addCounter % 500 === 0) {
-          addPoints(250);
-        }
-        else if (addCounter % 100 === 0) {
-          addPoints(40);
-        }
-        else if (addCounter % 10 === 0) {
-          addPoints(5);
-        }
-        else {
-          setReward(null);
-        }
+        setNextRewardCount( 10 - (addCounter % 10) );
+        if (addCounter % 500 === 0)      addPoints(250);
+        else if (addCounter % 100 === 0) addPoints(40);
+        else if (addCounter % 10 === 0)  addPoints(5);
+        else setReward(null);
       }
     }
   );
