@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './assets/index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -11,8 +11,8 @@ import { ApolloProvider } from '@apollo/react-hooks';
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  uri: 'https://wece-counter-game-server.herokuapp.com/graphql'
-  // uri: 'http://localhost:4000/graphql'
+  // uri: 'https://wece-counter-game-server.herokuapp.com/graphql'
+  uri: 'http://localhost:4000/graphql'
 })
 
 const client = new ApolloClient({
