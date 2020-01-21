@@ -1,3 +1,13 @@
+## Button Game (frontend)
+
+React/TypeScript/GraphQL app for a simple button pressing game.
+
+Deployed in heroku: [http://wece-counter-game.herokuapp.com/](http://wece-counter-game.herokuapp.com/)
+
+Related to backend implemented in [https://github.com/WeceW/button-game-server](https://github.com/WeceW/button-game-server)
+
+-----
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
