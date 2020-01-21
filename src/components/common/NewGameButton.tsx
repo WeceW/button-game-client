@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUndo } from '@fortawesome/free-solid-svg-icons';
+import Tooltip from './Tooltip';
+import ICON from '../../assets/icons';
 
 const NewGameButtonWrapper = styled.div`
+  position: relative;
   cursor: pointer;
   font-size: 120%;
 `
@@ -12,13 +13,19 @@ interface NewGameButtonProps {
   onClick: Function
 }
 
-const NewGameButton: React.FC<NewGameButtonProps> = ({onClick}) => (
-  <NewGameButtonWrapper>
-    <FontAwesomeIcon 
-      icon={faUndo} 
+const NewGameButton: React.FC<NewGameButtonProps> = ({onClick}) => {
+  const [showTooltip, setShowTooltip] = React.useState<boolean>(false);
+
+  return (
+    <NewGameButtonWrapper
       onClick={() => onClick()} 
-    />
-  </NewGameButtonWrapper>
-)
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
+      {showTooltip && <Tooltip text="New Game" />}
+      {ICON.newgame}
+    </NewGameButtonWrapper>
+  )
+}
 
 export default NewGameButton;

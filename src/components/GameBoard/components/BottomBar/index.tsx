@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faSkull, faFrog } from '@fortawesome/free-solid-svg-icons'
-
+import ICON from '../../../../assets/icons';
 import BottomText from './components/BottomText';
 
 const BottomBarWrapper = styled.div`
@@ -40,19 +38,19 @@ const BottomBar: React.FC<BottomBarProps> = ({reward, nextReward, gameover}) => 
       <BottomText 
         text={`You won ${reward}!`} 
         className="winning" 
-        icon={<FontAwesomeIcon icon={faStar} />} 
+        icon={ICON.reward} 
       />
       : gameover ? 
         <BottomText 
           text={`Game over`} 
           className="gameover" 
-          icon={<FontAwesomeIcon icon={faSkull} />} 
+          icon={ICON.gameover} 
         />
         : nextReward ?
           <BottomText 
             text={`No reward this time, sorry.`} 
             className="" 
-            icon={<FontAwesomeIcon icon={faFrog} />} 
+            icon={ICON.noreward} 
           />
           : <p>&nbsp;</p>
     }
