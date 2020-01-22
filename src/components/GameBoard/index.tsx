@@ -28,7 +28,7 @@ const GameBoard: React.FC = () => {
   const [ nextRewardCount, setNextRewardCount ] = useState<number|null>(null);
   const [ gameover, setGameover ] = useState<boolean>(points <= 0);
 
-  const [ addCounter, { error, /* data */ } ] = useMutation(
+  const [ addCounter, { error, loading, /* data */ } ] = useMutation(
     ADD_COUNTER_VALUE,
     {
       onCompleted({ addCounter }) {
@@ -81,6 +81,7 @@ const GameBoard: React.FC = () => {
         score={points} 
         reward={reward} 
         nextReward={nextRewardCount} 
+        loading={loading}
         gameover={gameover}
         handleRestart={handleRestart}
       />

@@ -30,11 +30,12 @@ interface TopBarProps {
   score: number
   reward: number|null
   nextReward: number|null
+  loading: boolean
   gameover: boolean
   handleRestart: Function
 }
 
-const TopBar: React.FC<TopBarProps> = ({score, reward, nextReward, gameover, handleRestart}) => (
+const TopBar: React.FC<TopBarProps> = ({score, reward, nextReward, loading, gameover, handleRestart}) => (
   <>
     <TopBarWrapper reward={reward} gameover={gameover}>
       <NewGameButton onClick={handleRestart} />
@@ -43,11 +44,13 @@ const TopBar: React.FC<TopBarProps> = ({score, reward, nextReward, gameover, han
     </TopBarWrapper>
 
     <SecondaryBar>
-      {nextReward && !gameover ?
-        <p>Next reward after {nextReward} pushes...</p>
-        : gameover ? 
-          <p>Start a new game?</p> 
-          : <p>Welcome! Start/Continue the game:</p>
+      {loading ? 
+        <p>Loading...</p> 
+        : nextReward && !gameover ?
+          <p>Next reward after {nextReward} pushes...</p>
+          : gameover ? 
+            <p>Start a new game?</p> 
+            : <p>Welcome! Start/Continue the game:</p>
       }
     </SecondaryBar>
   </>
